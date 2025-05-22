@@ -1,4 +1,8 @@
 package unir.com.tasks.repository;
 
-public class TaskRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import unir.com.tasks.entity.Task;
+
+public interface TaskRepository extends JpaRepository<Task, Long> {
+    Task findByUserId(Long userId);
 }

@@ -26,4 +26,11 @@ public class Task {
 
     @Column(nullable = false)
     private String status;
+
+    public void updateFrom(Task source) {
+        this.title = source.getTitle();
+        this.userId = source.getUserId();
+        this.description = source.getDescription();
+        this.status = source.getStatus();
+    }
 }
