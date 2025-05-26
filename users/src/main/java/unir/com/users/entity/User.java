@@ -29,4 +29,10 @@ public class User {
         @Column(name = "created_at", nullable = false, updatable = false)
         @CreationTimestamp
         private LocalDateTime createdAt;
+
+        public void updateFrom(User source) {
+                this.firstName = source.getFirstName();
+                this.lastName = source.getLastName();
+                this.email = source.getEmail();
+        }
 }
