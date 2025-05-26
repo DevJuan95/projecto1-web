@@ -25,6 +25,10 @@ public class TaskService {
         return taskRepository.findById(id);
     }
 
+    public Optional<List<Task>> getTaskByUserId(Long userId) {
+        return taskRepository.findByUserId(userId);
+    }
+
     public Task createTask(Task task) {
         return taskRepository.save(task);
     }

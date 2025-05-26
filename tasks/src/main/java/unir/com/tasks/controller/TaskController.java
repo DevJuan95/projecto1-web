@@ -25,6 +25,12 @@ public class TaskController {
         return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Task>> getByUserId(@PathVariable("id") Long id) {
+        var task = this.taskService.getTaskByUserId(id);
+        return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
         return ResponseEntity.ok(this.taskService.createTask(task));
