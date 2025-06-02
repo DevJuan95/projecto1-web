@@ -8,7 +8,7 @@ import unir.com.tasks.service.TaskService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/tasks")
+@RequestMapping("api/task")
 public class TaskController {
     private final TaskService taskService;
 

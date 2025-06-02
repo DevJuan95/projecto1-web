@@ -1,15 +1,15 @@
-package unir.com.tasks;
+package com.gateway_server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication
 @EnableDiscoveryClient
-public class TasksApplication {
+@SpringBootApplication
+public class GatewayServerApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(TasksApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(GatewayServerApplication.class, args);
+	}
 
 }

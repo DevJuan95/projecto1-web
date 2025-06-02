@@ -1,19 +1,29 @@
 package unir.com.users.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import unir.com.users.client.TaskClient;
 import unir.com.users.dto.CreateUserRequest;
+import unir.com.users.dto.TaskDTO;
+import unir.com.users.dto.UserDTO;
 import unir.com.users.entity.User;
 import unir.com.users.service.UserService;
 
+import java.util.List;
+import java.util.Optional;
+
 
 @RestController
-@RequestMapping("api/v1/users")
+@RequestMapping("api/user")
 public class UserController {
 
     private final UserService userService;
+
+    @Autowired
+    TaskClient taskClient;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -54,5 +64,21 @@ public class UserController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}/tasks")
+    public ResponseEntity<UserDTO> getTasksByUser(@PathVariable Long id) {
+        Optional<User> user = userService.getUserById(id);
+        if(user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        List<TaskDTO> tasks = taskClient.getTasks(id);
+        UserDTO userResponse = new UserDTO();
+        userResponse.setId(id);
+        userResponse.setTasks(tasks.toArray(new TaskDTO[0]));
+        userResponse.setFirstName(user.get().getFirstName());
+        userResponse.setLastName(user.get().getLastName());
+        userResponse.setEmail(user.get().getEmail());
+        return ResponseEntity.ok(userResponse);
     }
 }
